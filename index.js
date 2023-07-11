@@ -5,9 +5,9 @@ const db = require('./configDB.js');
 const app = express();
 app.use(cors());
 
-var candidateController = require('./Candidates/candidatesMethods');
-var EmployerController = require('./Employers/employersMethods');
-var advancedController = require('./advancedMethods');
+var candidateController = require('./Candidates/CandidatesMethods');
+var EmployerController = require('./Employers/EmployersMethods');
+var advancedController = require('./AdvancedMethods');
 
 // Your server code goes here
 

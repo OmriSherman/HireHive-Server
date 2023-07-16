@@ -59,6 +59,7 @@ appRouter.post('/loginUser', jsonParser, (req, resp) => {
       console.error(err1);
       resp.status(500).send('An error occurred while logging in.');
     } else if (result1.length > 0) {
+      result1.type = "candidate";
       resp.json(result1[0]);
     } else {
       let employersQuery = `SELECT * FROM employers WHERE email='${email}' AND password='${password}'`;
@@ -67,6 +68,7 @@ appRouter.post('/loginUser', jsonParser, (req, resp) => {
           console.error(err2);
           resp.status(500).send('An error occurred while logging in.');
         } else if (result2.length > 0) {
+          result2.type = "employer";
           resp.json(result2[0]);
         } else {
           resp.status(400).send('Invalid email or password.');

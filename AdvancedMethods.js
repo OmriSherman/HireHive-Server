@@ -6,8 +6,10 @@ const db = require('./configDb');
 var appRouter = express.Router();
 var jsonParser = bodyParser.json();
 
-appRouter.get("/getCities", (req, resp) => {
-  let sql = 'SELECT DISTINCT location FROM candidates';
+appRouter.post("/getCities", jsonParser, (req, resp) => {
+  const dataType =req.body;
+  const fetchLatter = dataType.type == 'candidate' ? 'employer' : 'candidate';
+  let sql = `SELECT DISTINCT location FROM ${fetchLatter}s`;
   db.query(sql, (err, result) => {
     if (err) {
       console.error(err);

@@ -49,22 +49,26 @@ appRouter.get("/getAll", (req, resp) => {
   appRouter.post("/insertMulti", jsonParser, (req, resp) => {
     const employers = req.body;
     const results = [];
-    employers.forEach((employer) => {
+    let completed = 0;
+    
+    const processResult = (err, result) => {
+      if (err) {
+        console.error('Error inserting employer:', err);
+      } else {
+        results.push(result);
+      }
+      
+      completed++;
+      if (completed === employers.length) {
+        resp.send(results);
+      }
+    };
+    
+    employers.forEach(employer => {
       let sql = 'INSERT INTO employers SET ?';
-      db.query(sql, employer, (err, result) => {
-        if (err) {
-          console.error(err);
-          console.log('Error inserting: ' + employer.name);
-        } else {
-          results.push(result);
-          if (results.length === employers.length) {
-            resp.send(results);
-          }
-        }
-      });
+      db.query(sql, employer, processResult);
     });
   });
-  
   
   appRouter.put("/update/:id", jsonParser, (req, resp) => {
     const data = req.body;

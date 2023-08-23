@@ -8,7 +8,7 @@ var jsonParser = bodyParser.json();
 
 appRouter.post("/getCities", jsonParser, (req, resp) => {
   const dataType =req.body;
-  const fetchLatter = dataType.type == 'candidate' ? 'employer' : 'candidate';
+  const fetchLatter = dataType.type;;
   let sql = `SELECT DISTINCT location FROM ${fetchLatter}s`;
   db.query(sql, (err, result) => {
     if (err) {

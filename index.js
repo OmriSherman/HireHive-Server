@@ -7,6 +7,7 @@ app.use(cors());
 
 var candidateController = require('./Candidates/CandidatesMethods');
 var EmployerController = require('./Employers/EmployersMethods');
+var JobController = require('./Jobs/JobsMethods');
 var advancedController = require('./AdvancedMethods');
 
 // Your server code goes here
@@ -17,4 +18,5 @@ app.listen(3000, () => {
 
 app.use('/candidates', candidateController);
 app.use('/employers', EmployerController);
+app.use('/jobs', JobController);
 app.use('/advanced', advancedController);
